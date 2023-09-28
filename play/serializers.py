@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from .models import User, Artist, Album, Song, Playlist_song, Playlist, Interaction
+from .models import User, Artist, Album, Song, Playlist, Interaction
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -33,17 +33,10 @@ class SongSerializer(serializers.ModelSerializer):
 
 
 class PlaylistSerializer(serializers.ModelSerializer):
+    songs = SongSerializer(many=True)
+
     class Meta:
         model = Playlist
-        fields = ['user_id', 'name', 'rules', 'create_at', 'update_at']
-
-
-class Playlist_songSerializer(serializers.ModelSerializer):
-    song = SongSerializer()
-    playlist = PlaylistSerializer()
-
-    class Meta:
-        model = Playlist_song
         fields = '__all__'
 
 
