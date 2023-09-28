@@ -5,13 +5,13 @@ from .views import UserViewSet, ArtistViewSet, AlbumViewSet, SongViewSet, Playli
     InteractionViewSet
 
 router = routers.DefaultRouter()
-router.register("User", UserViewSet)
-router.register("Artist", ArtistViewSet)
-router.register("Album", AlbumViewSet)
-router.register("Song", SongViewSet)
-router.register("Playlist", PlaylistViewSet)
-router.register("Playsong", Playlist_songViewSet)
-router.register("Interaction", InteractionViewSet)
+router.register("user", UserViewSet)
+router.register("artist", ArtistViewSet)
+router.register("album", AlbumViewSet)
+router.register("song", SongViewSet)
+router.register("playlist", PlaylistViewSet)
+router.register("playsong", Playlist_songViewSet)
+router.register("interaction", InteractionViewSet)
 
 urlpatterns = [
     path("", include(router.urls))

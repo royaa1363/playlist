@@ -3,7 +3,7 @@ from django.db import models
 
 class User(models.Model):
     name = models.CharField(max_length=256)
-    email = models.CharField(max_length=256)
+    email = models.EmailField(blank=True)
     password = models.CharField(max_length=256)
     is_admin = models.BooleanField(null=False)
     remember_token = models.CharField(max_length=256)
@@ -26,7 +26,7 @@ class Artist(models.Model):
 class Playlist(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     name = models.CharField(max_length=256)
-    rules = models.TextField()
+    rules = models.TextField(blank=True)
     create_at = models.DateTimeField(auto_now=True)
     update_at = models.DateTimeField(auto_now=True)
 
@@ -35,9 +35,9 @@ class Playlist(models.Model):
 
 
 class Album(models.Model):
-    artist = models.ForeignKey(Artist, on_delete=models.CASCADE, null=True)
+    artist = models.ForeignKey(Artist, on_delete=models.CASCADE, null=False)
     name = models.CharField(max_length=256)
-    cover = models.CharField(max_length=256)
+    cover = models.CharField(max_length=256, blank=True)
     create_at = models.DateTimeField(auto_now=True)
     update_at = models.DateTimeField(auto_now=True)
 
@@ -46,13 +46,13 @@ class Album(models.Model):
 
 
 class Song(models.Model):
-    artist = models.ForeignKey(Artist, on_delete=models.CASCADE, null=True)
-    album = models.ForeignKey(Album, on_delete=models.CASCADE, null=True)
+    artist = models.ForeignKey(Artist, on_delete=models.CASCADE, null=False)
+    album = models.ForeignKey(Album, on_delete=models.CASCADE, null=False)
     title = models.CharField(max_length=256)
-    length = models.FloatField()
-    track = models.IntegerField()
-    path = models.TextField()
-    mtime = models.IntegerField()
+    length = models.FloatField(null=True, default=0)
+    track = models.IntegerField(default=0)
+    path = models.TextField(blank=True, max_length=256)
+    mtime = models.IntegerField(null=True, default=0)
     create_at = models.DateTimeField(auto_now=True)
     update_at = models.DateTimeField(auto_now=True)
 
@@ -69,10 +69,10 @@ class Playlist_song(models.Model):
 
 
 class Interaction(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
-    song = models.ForeignKey(Song, on_delete=models.CASCADE, null=True)
-    liked = models.BooleanField(null=False)
-    play_count = models.IntegerField()
+    user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True)
+    song = models.ForeignKey(Song, on_delete=models.CASCADE, blank=True)
+    liked = models.BooleanField(null=True)
+    play_count = models.IntegerField(null=True)
     create_at = models.DateTimeField(auto_now=True)
     update_at = models.DateTimeField(auto_now=True)
 
