@@ -61,8 +61,8 @@ class Song(models.Model):
 
 
 class Playlist_song(models.Model):
-    playlist = models.ForeignKey(Playlist, on_delete=models.CASCADE, null=True)
-    song = models.ForeignKey(Song, on_delete=models.CASCADE, null=True)
+    playlist = models.ForeignKey(Playlist, on_delete=models.CASCADE)
+    song = models.ForeignKey(Song, on_delete=models.CASCADE)
 
     def __str__(self):
         return f'{self.playlist}'

@@ -16,15 +16,20 @@ class ArtistSerializer(serializers.ModelSerializer):
 
 
 class AlbumSerializer(serializers.ModelSerializer):
+    artist = ArtistSerializer()
+
     class Meta:
         model = Album
-        fields = ['id', 'name', 'cover', 'artist_id', 'create_at', 'update_at']
+        fields = '__all__'
 
 
 class SongSerializer(serializers.ModelSerializer):
+    artist = ArtistSerializer()
+    artist_name = serializers.CharField(source="artist.name")
+
     class Meta:
         model = Song
-        fields = ['id', 'title', 'length', 'track', 'path', 'album_id', 'artist_id', 'create_at', 'update_at']
+        fields = '__all__'
 
 
 class PlaylistSerializer(serializers.ModelSerializer):
@@ -34,9 +39,13 @@ class PlaylistSerializer(serializers.ModelSerializer):
 
 
 class Playlist_songSerializer(serializers.ModelSerializer):
+    song = SongSerializer()
+    playlist = PlaylistSerializer()
+
     class Meta:
         model = Playlist_song
-        fields = ['playlist_id', 'song_id']
+        fields = '__all__'
+
 
 class InteractionSerializer(serializers.ModelSerializer):
     class Meta:
