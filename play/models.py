@@ -51,7 +51,7 @@ class Song(models.Model):
     title = models.CharField(max_length=256)
     length = models.FloatField(null=True, default=0)
     track = models.IntegerField(default=0)
-    path = models.TextField(blank=True, max_length=256)
+    path = models.TextField(null=True, blank=True)
     mtime = models.IntegerField(null=True, default=0)
     create_at = models.DateTimeField(auto_now=True)
     update_at = models.DateTimeField(auto_now=True)
