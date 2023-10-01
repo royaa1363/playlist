@@ -1,8 +1,8 @@
 from rest_framework import viewsets
 
-from .models import User, Song, Playlist, Playlist_song, Album, Artist, Interaction
+from .models import User, Song, Playlist, Album, Artist, Interaction
 from .serializers import UserSerializer, ArtistSerializer, AlbumSerializer, PlaylistSerializer, SongSerializer, \
-    Playlist_songSerializer, InteractionSerializer
+    InteractionSerializer
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -28,11 +28,6 @@ class SongViewSet(viewsets.ModelViewSet):
 class PlaylistViewSet(viewsets.ModelViewSet):
     queryset = Playlist.objects.all()
     serializer_class = PlaylistSerializer
-
-
-class Playlist_songViewSet(viewsets.ModelViewSet):
-    queryset = Playlist_song.objects.all()
-    serializer_class = Playlist_songSerializer
 
 
 class InteractionViewSet(viewsets.ModelViewSet):

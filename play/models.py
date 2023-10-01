@@ -23,17 +23,6 @@ class Artist(models.Model):
         return f'{self.name}'
 
 
-class Playlist(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
-    name = models.CharField(max_length=256)
-    rules = models.TextField(blank=True)
-    create_at = models.DateTimeField(auto_now=True)
-    update_at = models.DateTimeField(auto_now=True)
-
-    def __str__(self):
-        return f'{self.name}'
-
-
 class Album(models.Model):
     artist = models.ForeignKey(Artist, on_delete=models.CASCADE, null=False)
     name = models.CharField(max_length=256)
@@ -60,12 +49,16 @@ class Song(models.Model):
         return f'{self.title}'
 
 
-class Playlist_song(models.Model):
-    playlist = models.ForeignKey(Playlist, on_delete=models.CASCADE)
-    song = models.ForeignKey(Song, on_delete=models.CASCADE)
+class Playlist(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+    name = models.CharField(max_length=256)
+    rules = models.TextField(blank=True)
+    songs = models.ManyToManyField(Song)
+    create_at = models.DateTimeField(auto_now=True)
+    update_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return f'{self.playlist}'
+        return f'{self.name}'
 
 
 class Interaction(models.Model):
